@@ -10,18 +10,80 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; }
-        .container { max-width: 800px; margin: auto; padding: 20px; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
         h1 { text-align: center; }
+
+        /* Center the table in the container */
+        #resultsTable {
+            margin: 0 auto;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Control column width and spacing */
+        #resultsTable th, #resultsTable td {
+            padding: 10px 15px; /* Add padding for spacing */
+            text-align: left;
+            white-space: nowrap; /* Prevent text from wrapping by default */
+            vertical-align: middle;
+        }
+
+        /* Apply custom widths for columns */
+        #resultsTable th {
+            font-size: 1.2rem; /* Increase the size of the headers */
+            background-color: #f4f4f4; /* Light background color for headers */
+        }
+
+        /* Apply specific column width control */
+        #resultsTable th.name-column, #resultsTable td.name-column {
+            width: 200px; /* Adjust width for the name column */
+            max-width: 200px;
+        }
+
+        #resultsTable th, #resultsTable td {
+            word-wrap: break-word; /* Allow wrapping */
+        }
+
+        /* Make the columns more spread out */
+        #resultsTable th:nth-child(1), #resultsTable th:nth-child(3),
+        #resultsTable th:nth-child(4), #resultsTable th:nth-child(5),
+        #resultsTable th:nth-child(6), #resultsTable th:nth-child(7),
+        #resultsTable th:nth-child(8), #resultsTable th:nth-child(9) {
+            width: 12%; /* Increase width of each header for more space */
+        }
+
+        /* Optional: Make the table responsive */
+        @media screen and (max-width: 600px) {
+            #resultsTable {
+                width: 100% !important;
+                overflow-x: auto;
+                display: block;
+            }
+        }
+
+        /* Notes section style */
+        .notes-section {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+        .notes-section p {
+            font-size: 1rem;
+            color: #555;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>BBCM - NDR - DERBY - YB - Candon - 3rd LAP</h1>
-        <table id="resultsTable" class="display" style="width:100%">
+        <table id="resultsTable" class="display">
             <thead>
                 <tr>
                     <th>COUNT</th>
-                    <th>NAME</th>
+                    <th class="name-column">NAME</th>
                     <th>RING_BAND</th>
                     <th>BAUANG</th>
                     <th>BALAOAN</th>
@@ -35,6 +97,15 @@
                 <!-- Data will be loaded here via JavaScript -->
             </tbody>
         </table>
+
+        <!-- Notes section below the table -->
+        <div class="notes-section">
+            <h2>Notes for Viewers</h2>
+            <p>
+                Please note that the race results are displayed based on various factors, including performance in different locations such as Bauang, Balaoan, and Candon. The "TOTAL SPEED" represents the aggregate speed of the birds across these locations. 
+                If you have any further questions, feel free to reach out for clarification.
+            </p>
+        </div>
     </div>
 
     <script>
@@ -48,7 +119,7 @@
                     const columns = row.split(",");
                     const tableRow = `<tr>
                         <td>${columns[0]}</td>
-                        <td>${columns[1]}</td>
+                        <td class="name-column">${columns[1]}</td>
                         <td>${columns[2]}</td>
                         <td>${columns[3]}</td>
                         <td>${columns[4]}</td>
@@ -59,8 +130,11 @@
                     </tr>`;
                     $("#resultsTable tbody").append(tableRow);
                 });
-                // Initialize DataTable
-                $('#resultsTable').DataTable();
+                // Initialize DataTable with responsive settings
+                $('#resultsTable').DataTable({
+                    "responsive": true,
+                    "autoWidth": false
+                });
             });
         });
     </script>
