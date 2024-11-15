@@ -3,11 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BBCM - NDR - DERBY - YB - Candon - 3rd LAP</title>
+    <title>Race Results</title>
+    <!-- Include jQuery and DataTables CSS/JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        h1 { text-align: center; }
+    </style>
 </head>
 <body>
-    <h1>Race Results</h1>
-    <p>Click the link below to download the race results:</p>
-    <a href="BBCM - NDR - DERBY - YB - Candon - 3rd LAP.xlsx" download>Download Race Results</a>
+    <div class="container">
+        <h1>BBCM - NDR - DERBY - YB - Candon - 3rd LAP</h1>
+        <table id="resultsTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>COUNT</th>
+                    <th>NAME</th>
+                    <th>RING_BAND</th>
+                    <th>BAUANG</th>
+                    <th>BALAOAN</th>
+                    <th>CANDON</th>
+                    <th>POINTS</th>
+                    <th>TOTAL SPEED</th>
+                    <th>RANK</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be loaded here via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Fetch CSV file and parse it
+            $.get("BBCM - NDR - DERBY - YB - Candon - 3rd LAP.csv", function(data) {
+                // Split CSV data into rows
+                const rows = data.split("\n");
+                rows.forEach((row, index) => {
+                    if (index === 0) return; // Skip header row
+                    const columns = row.split(",");
+                    const tableRow = `<tr>
+                        <td>${columns[0]}</td>
+                        <td>${columns[1]}</td>
+                        <td>${columns[2]}</td>
+                        <td>${columns[3]}</td>
+                        <td>${columns[4]}</td>
+                        <td>${columns[5]}</td>
+                        <td>${columns[6]}</td>
+                        <td>${columns[7]}</td>
+                        <td>${columns[8]}</td>
+                    </tr>`;
+                    $("#resultsTable tbody").append(tableRow);
+                });
+                // Initialize DataTable
+                $('#resultsTable').DataTable();
+            });
+        });
+    </script>
 </body>
 </html>
