@@ -120,7 +120,6 @@
         $(document).ready(function() {
             // Fetch CSV file and parse it
             $.get("BBCM - NDR - DERBY - YB - Candon - 3rd LAP.csv", function(data) {
-                // Split CSV data into rows
                 const rows = data.split("\n");
                 rows.forEach((row, index) => {
                     if (index === 0) return; // Skip header row
@@ -134,14 +133,21 @@
                         <td>${columns[5]}</td>
                         <td>${columns[6]}</td>
                         <td>${columns[7]}</td>
-                        <td>${columns[8]}</td> <!-- Assuming rank is in the 9th column -->
+                        <td>${columns[8]}</td>
                     </tr>`;
                     $("#resultsTable tbody").append(tableRow);
                 });
-                // Initialize DataTable with responsive settings
+
+                // Initialize DataTable
                 $('#resultsTable').DataTable({
                     "responsive": true,
-                    "autoWidth": false
+                    "autoWidth": false,
+                    "columnDefs": [
+                        { 
+                            "type": "num",   // Treat the Rank column as numeric
+                            "targets": 8     // Assuming Rank is the 9th column
+                        }
+                    ]
                 });
             });
         });
