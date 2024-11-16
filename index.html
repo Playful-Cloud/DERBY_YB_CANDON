@@ -13,7 +13,7 @@
         
         /* Center the table within the container */
         .container {
-            max-width: 2500px;        /* Set max-width for the container */
+            max-width: 2300px;        /* Set max-width for the container */
             margin: 0 auto;          /* Centers the container horizontally */
             padding: 20px;
             text-align: center;      /* Center any inline content inside */
@@ -32,8 +32,8 @@
         #resultsTable th, #resultsTable td {
             padding: 10px 15px; /* Add padding for spacing */
             text-align: left;
-            white-space: nowrap; /* Prevent text from wrapping by default */
             vertical-align: middle;
+            word-wrap: break-word; /* Ensure words break instead of overflow */
         }
 
         /* Apply custom widths for columns */
@@ -44,8 +44,8 @@
 
         /* Apply specific column width control */
         #resultsTable th.name-column, #resultsTable td.name-column {
-            width: 200px; /* Adjust width for the name column */
-            max-width: 200px;
+            width: 250px; /* Adjust width for the name column */
+            max-width: 250px;
         }
 
         #resultsTable th, #resultsTable td {
@@ -134,7 +134,7 @@
                         <td>${columns[5]}</td>
                         <td>${columns[6]}</td>
                         <td>${columns[7]}</td>
-                        <td>${columns[8]}</td>
+                        <td>${columns[8]}</td> <!-- Assuming rank is in the 9th column -->
                     </tr>`;
                     $("#resultsTable tbody").append(tableRow);
                 });
